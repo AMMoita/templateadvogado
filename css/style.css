@@ -277,62 +277,6 @@ img {
 
 
 
-/* ==========================================================
-   CURSOR
-========================================================== */
-
-.cursor-dot,
-.cursor-ring {
-
-    position: fixed;
-
-    pointer-events: none;
-
-    z-index: 10000;
-
-    border-radius: 50%;
-
-    transform:
-        translate(-50%, -50%);
-
-}
-
-
-.cursor-dot {
-
-    width: 5px;
-    height: 5px;
-
-    background: var(--gold);
-
-}
-
-
-.cursor-ring {
-
-    width: 38px;
-    height: 38px;
-
-    border:
-        1px solid
-        rgba(170,144,96,.65);
-
-    transition:
-        width .2s ease,
-        height .2s ease,
-        border .2s ease;
-
-}
-
-
-.cursor-ring.is-active {
-
-    width: 56px;
-    height: 56px;
-
-    border-color: var(--gold);
-
-}
 
 
 
@@ -1017,27 +961,18 @@ img {
 
 .statement-section__text {
 
-    width:
-        min(
-            100%,
-            980px
-        );
-
+    width: 100%;
     margin: 0;
-
     font-family: var(--font-serif);
-
-    font-size:
-        clamp(
-            48px,
-            6vw,
-            92px
-        );
-
+    font-size: clamp(21px, 5vw, 78px);
     line-height: 1.06;
-
     letter-spacing: -.04em;
 
+}
+
+.statement-section__text span {
+    display: block;
+    white-space: nowrap;
 }
 
 
@@ -1089,23 +1024,7 @@ img {
 
 
 .practice-card::before {
-    display: block;
-    margin-bottom: 32px;
-    color: var(--gold);
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: .18em;
-}
-
-
-.practice-card:first-child::before {
-    content: "01";
-}
-
-
-.practice-card:last-child::before {
-    content: "02";
-    padding-left: 0;
+    display: none;
 }
 
 
@@ -1144,10 +1063,10 @@ img {
 
 .practice-card li {
     position: relative;
-    padding: 0 0 0 20px;
+    padding: 0 0 0 24px;
     border: 0;
-    font-size: 14px;
-    line-height: 1.72;
+    font-size: 16px;
+    line-height: 1.68;
     color: var(--grey-dark);
 }
 
@@ -1156,9 +1075,9 @@ img {
     content: "";
     position: absolute;
     left: 0;
-    top: .78em;
-    width: 4px;
-    height: 4px;
+    top: .72em;
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
     background: var(--gold);
 }
@@ -1223,13 +1142,9 @@ img {
 .education-card__field {
 
     color: var(--gold-light);
-
-    font-size: 11px;
-
+    font-size: 15px;
     font-weight: 600;
-
-    letter-spacing: .08em;
-
+    letter-spacing: .07em;
     text-transform: uppercase;
 
 }
@@ -1508,121 +1423,144 @@ img {
 
 
 .social-card {
-
-    background: var(--ivory-dark);
-
-    border:
-        1px solid
-        var(--border-light);
-
-    overflow: hidden;
-
+    position: relative;
+    min-height: 455px;
+    perspective: 1400px;
+    outline: none;
 }
 
+.social-card__inner {
+    position: relative;
+    width: 100%;
+    min-height: 455px;
+    transform-style: preserve-3d;
+    transition: transform .72s cubic-bezier(.22,1,.36,1);
+}
+
+.social-card__face {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    border: 1px solid var(--border-light);
+    background: var(--ivory-dark);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.social-card__front {
+    transform: rotateY(0deg);
+}
+
+.social-card__back {
+    padding: clamp(36px, 5vw, 64px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transform: rotateY(180deg);
+    background: var(--black-soft);
+    color: var(--ivory);
+}
 
 .social-card__media {
-
     position: relative;
-
     min-height: 330px;
-
     background-color: #c8c2b7;
-
     background-position: center;
-
     background-size: cover;
-
-    filter:
-        grayscale(100%);
-
-    transition:
-        filter .45s ease,
-        transform .6s cubic-bezier(.22,1,.36,1);
-
+    filter: grayscale(100%);
+    transition: filter .45s ease;
 }
-
 
 .social-card__media::after {
-
-    content:
-        "Adicionar imagem / vídeo";
-
+    content: "Adicionar imagem / vídeo";
     position: absolute;
-
     inset: 0;
-
     display: grid;
-
     place-items: center;
-
-    color:
-        rgba(16,16,15,.55);
-
+    color: rgba(16,16,15,.55);
     font-size: 10px;
-
     letter-spacing: .12em;
-
     text-transform: uppercase;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(255,255,255,.08),
-            rgba(0,0,0,.05)
-        );
-
+    background: linear-gradient(135deg, rgba(255,255,255,.08), rgba(0,0,0,.05));
 }
 
+@media (hover: hover) and (pointer: fine) {
+    .social-card:hover .social-card__inner {
+        transform: rotateY(180deg);
+    }
 
-.social-card:hover
-.social-card__media {
-
-    filter:
-        grayscale(20%);
-
-    transform:
-        scale(1.015);
-
+    .social-card:hover .social-card__media {
+        filter: grayscale(20%);
+    }
 }
 
+.social-card:focus-visible .social-card__inner,
+.social-card.is-flipped .social-card__inner {
+    transform: rotateY(180deg);
+}
+
+.social-card:focus-visible {
+    outline: 1px solid var(--gold);
+    outline-offset: 5px;
+}
 
 .social-card__body {
-
-    padding:
-        28px
-        30px
-        32px;
-
+    padding: 28px 30px 32px;
 }
 
-
-.social-card__body h2 {
-
-    margin:
-        0
-        0
-        10px;
-
+.social-card__body h2,
+.social-card__back h2 {
+    margin: 0 0 10px;
     font-family: var(--font-serif);
-
     font-size: 31px;
-
     font-weight: 500;
-
 }
-
 
 .social-card__body p {
-
     margin: 0;
-
     font-size: 13px;
-
     color: var(--grey-dark);
+}
 
+.social-card__back-label {
+    margin-bottom: 24px;
+    color: var(--gold-light);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+}
+
+.social-card__back h2 {
+    margin-bottom: 22px;
+    font-size: clamp(34px, 3.2vw, 48px);
+}
+
+.social-card__back p {
+    max-width: 520px;
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: clamp(19px, 1.65vw, 25px);
+    line-height: 1.5;
+    color: rgba(241,238,232,.9);
+}
+
+.social-card__back small {
+    margin-top: auto;
+    padding-top: 30px;
+    color: rgba(241,238,232,.52);
+    font-size: 9px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
 }
 
 
+
+@media (prefers-reduced-motion: reduce) {
+    .social-card__inner {
+        transition: none;
+    }
+}
 
 /* ==========================================================
    CONTACT
@@ -1660,16 +1598,16 @@ img {
 .contact__title {
     margin: 0;
     font-family: var(--font-serif);
-    font-size: clamp(68px, 8.1vw, 126px);
-    line-height: .92;
-    letter-spacing: -.055em;
+    font-size: clamp(38px, 3.55vw, 58px);
+    line-height: 1;
+    letter-spacing: -.045em;
     font-weight: 500;
 }
 
 
 .contact__title span {
-    display: block;
-    padding-left: 12%;
+    display: inline;
+    padding-left: 0;
     color: var(--gold);
 }
 
@@ -1677,35 +1615,45 @@ img {
 .contact__grid {
     margin-top: 108px;
     display: grid;
-    grid-template-columns: .82fr 1.18fr;
+    grid-template-columns: 1.18fr .82fr;
     gap: clamp(70px, 8vw, 130px);
     align-items: start;
 }
 
 
 .contact__details {
-    padding-top: 9px;
+    padding-top: 8px;
 }
 
+
+.contact-panel + .contact-panel {
+    margin-top: 62px;
+}
+
+.contact-panel__title {
+    margin: 0 0 34px;
+    font-family: var(--font-serif);
+    font-size: clamp(30px, 2.5vw, 42px);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -.03em;
+}
 
 .contact-info {
     margin-top: 0;
     display: grid;
-    gap: 28px;
+    gap: 25px;
 }
-
 
 .contact-info > div {
     padding: 0;
     border: 0;
     display: grid;
-    grid-template-columns: 105px 1fr;
-    gap: 20px;
+    grid-template-columns: 92px 1fr;
+    gap: 18px;
 }
 
-
-.contact-info span,
-.contact-social > span {
+.contact-info span {
     color: var(--gold);
     font-size: 9px;
     font-weight: 600;
@@ -1713,53 +1661,64 @@ img {
     text-transform: uppercase;
 }
 
-
 .contact-info a,
 .contact-info p {
     margin: 0;
-    font-size: 13px;
+    font-size: 14px;
     line-height: 1.65;
     color: var(--grey-dark);
 }
-
 
 .contact-info a {
     transition: color .25s ease;
 }
 
-
 .contact-info a:hover {
     color: var(--gold);
 }
 
-
 .contact-social {
-    margin-top: 52px;
     display: flex;
-    flex-wrap: wrap;
-    gap: 12px 22px;
+    align-items: center;
+    gap: 14px;
 }
-
-
-.contact-social > span {
-    flex-basis: 100%;
-    margin-bottom: 8px;
-}
-
 
 .contact-social a {
-    padding-bottom: 3px;
-    border-bottom: 1px solid rgba(16,16,15,.2);
-    font-size: 11px;
-    transition:
-        color .25s ease,
-        border-color .25s ease;
+    width: 46px;
+    height: 46px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(16,16,15,.18);
+    border-radius: 50%;
+    transition: color .25s ease, border-color .25s ease, background .25s ease;
 }
 
-
-.contact-social a:hover {
+.contact-social a:hover,
+.contact-social a:focus-visible {
     color: var(--gold);
     border-color: var(--gold);
+    outline: none;
+}
+
+.contact-social svg {
+    width: 21px;
+    height: 21px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.contact-social .icon-fill {
+    fill: currentColor;
+    stroke: none;
+}
+
+@media (min-width: 901px) {
+    .contact__title {
+        white-space: nowrap;
+    }
 }
 
 
@@ -2109,16 +2068,6 @@ body.loaded
 ========================================================== */
 
 @media (max-width: 900px) {
-
-
-    .cursor-dot,
-    .cursor-ring {
-
-        display: none;
-
-    }
-
-
     .header {
 
         height: 85px;
@@ -2517,9 +2466,7 @@ body.loaded
 
 
     .statement-section__text {
-
-        font-size: 43px;
-
+        font-size: clamp(21px, 5.5vw, 32px);
     }
 
 
@@ -2660,10 +2607,21 @@ body.loaded
     }
 
 
+    .social-card,
+    .social-card__inner {
+        min-height: 370px;
+    }
+
     .social-card__media {
-
         min-height: 240px;
+    }
 
+    .social-card__back {
+        padding: 34px 28px;
+    }
+
+    .social-card__back small {
+        display: none;
     }
 
 
@@ -2676,22 +2634,15 @@ body.loaded
 
     }
 
-
     .contact__title {
-
-        font-size: 56px;
-
-        line-height: .96;
-
+        font-size: clamp(42px, 12.5vw, 56px);
+        line-height: .98;
     }
 
-
     .contact__title span {
-
+        display: inline;
         padding-left: 0;
-
-        margin-top: 8px;
-
+        margin-top: 0;
     }
 
 
@@ -2761,6 +2712,435 @@ body.loaded
 }
 
 
+
+/* ==========================================================
+   PREMIUM REFINEMENTS — INDEX + CONTACTOS
+========================================================== */
+
+/* INDEX — transição mais compacta e editorial */
+.statement-section {
+    min-height: clamp(420px, 38vw, 500px);
+}
+
+.statement-section__text {
+    max-width: 1380px;
+}
+
+/* INDEX — áreas de prática com acabamento mais arquitetónico */
+.practice.section {
+    padding-top: 126px;
+    padding-bottom: 132px;
+}
+
+.practice__header {
+    position: relative;
+    margin-bottom: 76px;
+    padding-top: 30px;
+    border-top: 1px solid rgba(16, 16, 15, .15);
+}
+
+.practice__header::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: 0;
+    width: 76px;
+    height: 1px;
+    background: var(--gold);
+}
+
+.practice-cards {
+    gap: clamp(80px, 8.5vw, 138px);
+}
+
+.practice-card {
+    padding-top: 34px;
+    border-top: 1px solid rgba(16, 16, 15, .12);
+}
+
+.practice-card:first-child,
+.practice-card:last-child {
+    border-top: 1px solid rgba(16, 16, 15, .12);
+}
+
+.practice-card h3 {
+    margin-bottom: 34px;
+}
+
+.practice-card ul {
+    max-width: 590px;
+}
+
+/* INDEX — formação: três terços iguais, alinhamento exterior equilibrado */
+.education-strip {
+    padding: 84px 0;
+}
+
+.education-strip__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.education-card {
+    min-width: 0;
+    min-height: 222px;
+    padding: 18px clamp(28px, 3.1vw, 50px);
+}
+
+.education-card:first-child {
+    padding-left: 0;
+    align-items: flex-start;
+    text-align: left;
+}
+
+.education-card:nth-child(2) {
+    align-items: center;
+    text-align: center;
+}
+
+.education-card:last-child {
+    padding-right: 0;
+    align-items: flex-end;
+    text-align: right;
+}
+
+.education-card__degree {
+    max-width: 100%;
+}
+
+/* CONTACTOS — bloco direito alinhado e hierarquia mais refinada */
+.contact__grid {
+    grid-template-columns: minmax(0, 1.12fr) minmax(340px, .88fr);
+    gap: clamp(78px, 7vw, 118px);
+}
+
+.contact__details {
+    position: relative;
+    padding: 46px 0 0 clamp(40px, 4vw, 62px);
+    border-left: 1px solid rgba(16, 16, 15, .14);
+}
+
+.contact__details::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -1px;
+    width: 1px;
+    height: 68px;
+    background: var(--gold);
+}
+
+.contact-panel__title {
+    margin-bottom: 28px;
+    font-size: clamp(30px, 2.25vw, 38px);
+    letter-spacing: -.035em;
+}
+
+.contact-info {
+    gap: 0;
+}
+
+.contact-info > div {
+    grid-template-columns: minmax(78px, 92px) minmax(0, 1fr);
+    gap: 22px;
+    padding: 17px 0 18px;
+    border-bottom: 1px solid rgba(16, 16, 15, .095);
+    align-items: baseline;
+}
+
+.contact-info > div:first-child {
+    padding-top: 0;
+}
+
+.contact-info span {
+    line-height: 1.4;
+}
+
+.contact-info a,
+.contact-info p {
+    font-size: 14.5px;
+    line-height: 1.58;
+}
+
+.contact-panel + .contact-panel {
+    margin-top: 48px;
+}
+
+.contact-panel--social {
+    padding-top: 32px;
+    border-top: 1px solid rgba(16, 16, 15, .14);
+}
+
+.contact-panel--social .contact-panel__title {
+    margin-bottom: 24px;
+    font-size: clamp(24px, 1.75vw, 30px);
+}
+
+/* CONTACTOS — pictogramas sociais minimalistas, sem moldura pesada */
+.contact-social {
+    gap: 25px;
+}
+
+.contact-social a {
+    width: 25px;
+    height: 28px;
+    display: grid;
+    place-items: center;
+    border: 0;
+    border-radius: 0;
+    color: var(--black);
+    transition: color .22s ease, transform .22s ease;
+}
+
+.contact-social a:hover,
+.contact-social a:focus-visible {
+    color: var(--gold);
+    border-color: transparent;
+    background: transparent;
+    transform: translateY(-1px);
+}
+
+.contact-social a:focus-visible {
+    outline: 1px solid var(--gold);
+    outline-offset: 6px;
+}
+
+.contact-social svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.35;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.contact-social .icon-fill {
+    fill: currentColor;
+    stroke: none;
+}
+
+@media (max-width: 900px) {
+    .statement-section {
+        min-height: 410px;
+    }
+
+    .practice.section {
+        padding-top: 108px;
+        padding-bottom: 112px;
+    }
+
+    .practice-card {
+        padding-top: 30px;
+    }
+
+    .education-card,
+    .education-card:first-child,
+    .education-card:nth-child(2),
+    .education-card:last-child {
+        align-items: flex-start;
+        text-align: left;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .contact__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .contact__details {
+        max-width: none;
+        padding: 42px 0 0;
+        border-left: 0;
+        border-top: 1px solid rgba(16, 16, 15, .14);
+    }
+
+    .contact__details::before {
+        top: -1px;
+        left: 0;
+        width: 72px;
+        height: 1px;
+    }
+}
+
+@media (max-width: 600px) {
+    .statement-section {
+        min-height: 340px;
+    }
+
+    .practice.section {
+        padding-top: 86px;
+        padding-bottom: 92px;
+    }
+
+    .practice__header {
+        margin-bottom: 46px;
+        padding-top: 24px;
+    }
+
+    .practice-card {
+        padding-top: 26px;
+    }
+
+    .education-strip {
+        padding: 52px 0;
+    }
+
+    .contact__details {
+        padding-top: 34px;
+    }
+
+    .contact-info > div {
+        grid-template-columns: 1fr;
+        gap: 7px;
+        padding: 15px 0 17px;
+    }
+
+    .contact-social {
+        gap: 24px;
+    }
+}
+
+
+/* ==========================================================
+   REFINAMENTO PREMIUM V3 — menos linhas, melhor proporção
+========================================================== */
+
+/* INDEX — remove apenas a linha antes do título da secção de prática */
+.practice__header {
+    padding-top: 0;
+    border-top: 0;
+}
+
+.practice__header::before {
+    display: none;
+}
+
+/* INDEX — formação: terços rigorosamente iguais e todo o texto à esquerda */
+.education-strip__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.education-card,
+.education-card:first-child,
+.education-card:nth-child(2),
+.education-card:last-child {
+    align-items: flex-start;
+    text-align: left;
+}
+
+.education-card {
+    padding-left: clamp(30px, 3.25vw, 52px);
+    padding-right: clamp(30px, 3.25vw, 52px);
+}
+
+.education-card:first-child {
+    padding-left: 0;
+}
+
+.education-card:last-child {
+    padding-right: 0;
+}
+
+/* CONTACTOS — divisão vertical completa entre as duas metades */
+.contact__grid {
+    align-items: stretch;
+}
+
+.contact__details {
+    align-self: stretch;
+    padding-top: 46px;
+    padding-bottom: 8px;
+}
+
+.contact__details::before {
+    top: 0;
+    bottom: 0;
+    left: -1px;
+    width: 1px;
+    height: auto;
+    background: var(--gold);
+    opacity: .72;
+}
+
+/* Retira a linha final sob a morada e evita nova linha antes das redes */
+.contact-info > div:last-child {
+    border-bottom: 0;
+}
+
+.contact-panel--social {
+    padding-top: 0;
+    border-top: 0;
+}
+
+/* Redes sociais — pictogramas maiores, mais leves e de traço fino */
+.contact-social {
+    gap: 30px;
+}
+
+.contact-social a {
+    width: 34px;
+    height: 34px;
+    color: rgba(78, 75, 68, .68);
+}
+
+.contact-social a:hover,
+.contact-social a:focus-visible {
+    color: var(--gold);
+    transform: translateY(-1px);
+}
+
+.contact-social svg {
+    width: 27px;
+    height: 27px;
+    stroke-width: 1.05;
+}
+
+@media (max-width: 900px) {
+    .contact__grid {
+        align-items: start;
+    }
+
+    .contact__details {
+        padding-top: 42px;
+        padding-bottom: 0;
+    }
+
+    .contact__details::before {
+        top: -1px;
+        bottom: auto;
+        left: 0;
+        width: 72px;
+        height: 1px;
+    }
+
+    .education-card,
+    .education-card:first-child,
+    .education-card:nth-child(2),
+    .education-card:last-child {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+@media (max-width: 600px) {
+    .contact__details {
+        padding-top: 34px;
+    }
+
+    .contact-social {
+        gap: 28px;
+    }
+
+    .contact-social a {
+        width: 36px;
+        height: 36px;
+    }
+
+    .contact-social svg {
+        width: 28px;
+        height: 28px;
+    }
+}
 
 /* ==========================================================
    REDUCED MOTION
