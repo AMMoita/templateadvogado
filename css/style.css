@@ -3168,3 +3168,482 @@ body.loaded
 
 
 }
+
+/* ==========================================================
+   RESPONSIVE FINAL — V4
+   Consolidação dos breakpoints e comportamento táctil
+========================================================== */
+
+/* Evita overflow em grids/flex quando o conteúdo tem palavras ou URLs longas. */
+.profile__grid > *,
+.profile__columns > *,
+.practice-cards > *,
+.education-strip__grid > *,
+.perspectives-grid > *,
+.social-grid > *,
+.contact__grid > *,
+.footer__inner > * {
+    min-width: 0;
+}
+
+.page-title,
+.display-title,
+.practice-card h3,
+.education-card__degree,
+.contact__title,
+.contact-panel__title,
+.contact-info a,
+.contact-info p {
+    overflow-wrap: break-word;
+}
+
+/* Os ícones passam a usar os glifos oficiais/standard em preenchimento sólido. */
+.contact-social svg {
+    width: 24px;
+    height: 24px;
+    fill: currentColor;
+    stroke: none;
+}
+
+.contact-social .icon-fill {
+    fill: currentColor;
+}
+
+@media (max-width: 1100px) and (min-width: 901px) {
+    .header {
+        padding-inline: 26px;
+    }
+
+    .logo {
+        gap: 12px;
+    }
+
+    .logo__text {
+        padding-left: 12px;
+    }
+
+    .desktop-nav {
+        gap: 15px;
+    }
+
+    .desktop-nav a {
+        font-size: 8.5px;
+        letter-spacing: .08em;
+    }
+
+    .practice-cards {
+        gap: 64px;
+    }
+
+    .contact__grid {
+        gap: 56px;
+    }
+}
+
+@media (max-width: 900px) {
+    .page-title {
+        font-size: clamp(54px, 10vw, 82px);
+    }
+
+    .statement-section__text {
+        max-width: 100%;
+    }
+
+    .practice-card,
+    .practice-card:first-child,
+    .practice-card:last-child {
+        padding-top: 34px;
+    }
+
+    /* Formação: a regra final deixa de voltar a impor três colunas. */
+    .education-strip__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .education-card,
+    .education-card:first-child,
+    .education-card:nth-child(2),
+    .education-card:last-child {
+        min-height: 0;
+        padding: 34px 0 36px;
+        border-right: 0;
+        border-bottom: 1px solid var(--border-dark);
+        display: grid;
+        grid-template-columns: minmax(135px, .72fr) minmax(0, 1.28fr);
+        gap: 34px;
+        align-items: end;
+        text-align: left;
+    }
+
+    .education-card:first-child {
+        padding-top: 8px;
+    }
+
+    .education-card:last-child {
+        padding-bottom: 8px;
+        border-bottom: 0;
+    }
+
+    .education-card__field,
+    .education-card__degree {
+        align-self: end;
+    }
+
+    .education-card__degree {
+        font-size: clamp(34px, 6.6vw, 48px);
+    }
+
+    .social-card,
+    .social-card__inner {
+        min-height: clamp(390px, 65vw, 500px);
+    }
+
+    .social-card__media {
+        min-height: clamp(245px, 45vw, 340px);
+    }
+
+    .contact-form {
+        width: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+    .header {
+        height: 78px;
+        padding-inline: 18px;
+    }
+
+    .header.is-scrolled {
+        height: 70px;
+    }
+
+    .logo__letters {
+        font-size: 27px;
+    }
+
+    .mobile-menu__inner {
+        padding-inline: 24px;
+    }
+
+    .display-title {
+        font-size: clamp(43px, 12vw, 56px);
+        line-height: 1.01;
+    }
+
+    .hero {
+        min-height: max(700px, 100svh);
+    }
+
+    .hero__content {
+        padding-top: 128px;
+        padding-bottom: max(46px, env(safe-area-inset-bottom));
+    }
+
+    .hero__title {
+        font-size: clamp(54px, 16vw, 78px);
+        line-height: .92;
+    }
+
+    .hero__description {
+        max-width: 36ch;
+        margin-top: 38px;
+        font-size: 14.5px;
+        line-height: 1.62;
+    }
+
+    /* A frase passa a correr naturalmente, sem forçar uma linha por <span>. */
+    .statement-section {
+        min-height: 380px;
+        padding-block: 72px;
+    }
+
+    .statement-section__text {
+        max-width: 11.5em;
+        font-size: clamp(34px, 9.6vw, 48px);
+        line-height: 1.07;
+        letter-spacing: -.045em;
+    }
+
+    .statement-section__text span {
+        display: inline;
+        white-space: normal;
+    }
+
+    .statement-section__text span + span::before {
+        content: " ";
+    }
+
+    .practice.section {
+        padding-top: 92px;
+        padding-bottom: 96px;
+    }
+
+    .practice__header {
+        margin-bottom: 52px;
+    }
+
+    .practice-cards {
+        gap: 66px;
+    }
+
+    /* Mais respiração entre o separador e os títulos, em especial o segundo. */
+    .practice-card,
+    .practice-card:first-child,
+    .practice-card:last-child {
+        padding-top: 38px;
+    }
+
+    .practice-card h3 {
+        margin-bottom: 30px;
+        font-size: clamp(34px, 10.4vw, 43px);
+    }
+
+    .practice-card li {
+        font-size: 15px;
+        line-height: 1.64;
+    }
+
+    .education-strip {
+        padding: 62px 0;
+    }
+
+    .education-card,
+    .education-card:first-child,
+    .education-card:nth-child(2),
+    .education-card:last-child {
+        padding: 27px 0 30px;
+        grid-template-columns: minmax(108px, .7fr) minmax(0, 1.3fr);
+        gap: 20px;
+    }
+
+    .education-card:first-child {
+        padding-top: 0;
+    }
+
+    .education-card:last-child {
+        padding-bottom: 0;
+    }
+
+    .education-card__field {
+        font-size: 11px;
+        letter-spacing: .09em;
+    }
+
+    .education-card__degree {
+        font-size: clamp(30px, 8.6vw, 38px);
+        line-height: 1.02;
+    }
+
+    .page-main {
+        padding-top: 78px;
+    }
+
+    .editorial-page {
+        padding-top: 64px;
+        padding-bottom: 82px;
+    }
+
+    .page-title {
+        font-size: clamp(46px, 13vw, 60px);
+        line-height: .99;
+    }
+
+    .perspectives-grid,
+    .social-grid {
+        margin-top: 50px;
+    }
+
+    /*
+       Em ecrãs tácteis a metáfora de "virar" é mantida através de uma
+       transição de faces 2D. É mais estável em Safari/iOS e Android do que
+       preserve-3d/backface-visibility, mantendo a mesma leitura frente/verso.
+    */
+    @media (hover: none), (pointer: coarse) {
+        .social-card {
+            min-height: 410px;
+            perspective: none;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .social-card__inner {
+            min-height: 410px;
+            transform: none !important;
+            transform-style: flat;
+            transition: none;
+        }
+
+        .social-card__face {
+            backface-visibility: visible;
+            -webkit-backface-visibility: visible;
+            transition:
+                opacity .42s cubic-bezier(.22,1,.36,1),
+                transform .42s cubic-bezier(.22,1,.36,1);
+        }
+
+        .social-card__front {
+            z-index: 2;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .social-card__back {
+            z-index: 1;
+            opacity: 0;
+            transform: translateY(18px);
+            pointer-events: none;
+        }
+
+        .social-card.is-flipped .social-card__front {
+            opacity: 0;
+            transform: translateY(-12px);
+            pointer-events: none;
+        }
+
+        .social-card.is-flipped .social-card__back {
+            z-index: 3;
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .social-card__front::after {
+            content: "Toque para saber mais";
+            position: absolute;
+            right: 22px;
+            bottom: 18px;
+            z-index: 3;
+            color: rgba(16,16,15,.55);
+            font-size: 8px;
+            font-weight: 600;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+        }
+
+        .social-card__back small {
+            display: block;
+            padding-top: 22px;
+        }
+    }
+
+    .social-card,
+    .social-card__inner {
+        min-height: 410px;
+    }
+
+    .social-card__media {
+        min-height: 260px;
+    }
+
+    .social-card__body {
+        padding: 24px 24px 28px;
+    }
+
+    .social-card__body h2 {
+        padding-right: 80px;
+        font-size: 28px;
+    }
+
+    .social-card__back {
+        padding: 32px 26px;
+    }
+
+    .social-card__back h2 {
+        font-size: clamp(34px, 10vw, 42px);
+    }
+
+    .social-card__back p {
+        font-size: clamp(18px, 5.2vw, 22px);
+        line-height: 1.45;
+    }
+
+    .contact--standalone {
+        padding-top: 112px;
+        padding-bottom: 82px;
+    }
+
+    .contact__title {
+        font-size: clamp(40px, 11.8vw, 54px);
+        line-height: 1;
+    }
+
+    .contact__grid {
+        margin-top: 58px;
+        gap: 54px;
+    }
+
+    .contact-form {
+        padding: 32px 22px 22px;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        font-size: 20px;
+    }
+
+    .contact-social {
+        gap: 24px;
+    }
+
+    .contact-social a {
+        width: 34px;
+        height: 34px;
+    }
+
+    .contact-social svg {
+        width: 23px;
+        height: 23px;
+    }
+}
+
+@media (max-width: 420px) {
+    .container,
+    .hero__content {
+        width: calc(100% - 30px);
+    }
+
+    .hero__title {
+        font-size: clamp(50px, 16.4vw, 67px);
+    }
+
+    .statement-section__text {
+        max-width: 10.7em;
+        font-size: clamp(32px, 9.4vw, 40px);
+    }
+
+    .education-card,
+    .education-card:first-child,
+    .education-card:nth-child(2),
+    .education-card:last-child {
+        grid-template-columns: 1fr;
+        gap: 9px;
+        align-items: start;
+    }
+
+    .education-card__field,
+    .education-card__degree {
+        align-self: start;
+    }
+
+    .page-title {
+        font-size: clamp(43px, 12.7vw, 54px);
+    }
+
+    .social-card__body h2 {
+        padding-right: 0;
+    }
+
+    @media (hover: none), (pointer: coarse) {
+        .social-card__front::after {
+            right: 20px;
+            bottom: 15px;
+        }
+    }
+
+    .contact-form {
+        margin-inline: -3px;
+        width: calc(100% + 6px);
+        padding-inline: 19px;
+    }
+}
