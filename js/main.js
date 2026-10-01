@@ -6,9 +6,6 @@ const prefersReducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
 ).matches;
 
-const hasFinePointer = window.matchMedia(
-    "(pointer: fine)"
-).matches;
 
 
 /* =========================================================
@@ -267,150 +264,90 @@ if (heroBackground) {
 
 
 /* =========================================================
-   CUSTOM CURSOR
+   RESPONSABILIDADE SOCIAL — CARTÕES INTERATIVOS
 ========================================================= */
 
-const cursorDot =
-    document.querySelector(".cursor-dot");
+const socialCards = document.querySelectorAll(".social-card");
+const touchLikePointer = window.matchMedia(
+    "(hover: none), (pointer: coarse)"
+);
 
-const cursorRing =
-    document.querySelector(".cursor-ring");
-
-if (
-    hasFinePointer &&
-    cursorDot &&
-    cursorRing &&
-    !prefersReducedMotion
-) {
-
-    let mouseX = 0;
-    let mouseY = 0;
-
-    let ringX = 0;
-    let ringY = 0;
-
-
-    document.addEventListener("mousemove", event => {
-
-        mouseX = event.clientX;
-        mouseY = event.clientY;
-
-        cursorDot.style.left =
-            `${mouseX}px`;
-
-        cursorDot.style.top =
-            `${mouseY}px`;
-
+function closeOtherSocialCards(activeCard) {
+    socialCards.forEach(card => {
+        if (card !== activeCard) {
+            card.classList.remove("is-flipped");
+            card.setAttribute("aria-pressed", "false");
+        }
     });
-
-
-    function animateCursor() {
-
-        ringX +=
-            (mouseX - ringX) * 0.13;
-
-        ringY +=
-            (mouseY - ringY) * 0.13;
-
-        cursorRing.style.left =
-            `${ringX}px`;
-
-        cursorRing.style.top =
-            `${ringY}px`;
-
-        requestAnimationFrame(
-            animateCursor
-        );
-
-    }
-
-    animateCursor();
-
-
-    document
-        .querySelectorAll(
-            "a, button, input, textarea, select, label"
-        )
-        .forEach(element => {
-
-            element.addEventListener(
-                "mouseenter",
-                () => {
-
-                    cursorRing.classList.add(
-                        "is-active"
-                    );
-
-                }
-            );
-
-            element.addEventListener(
-                "mouseleave",
-                () => {
-
-                    cursorRing.classList.remove(
-                        "is-active"
-                    );
-
-                }
-            );
-
-        });
-
 }
 
+socialCards.forEach(card => {
 
-/* =========================================================
-   MAGNETIC BUTTON EFFECT
-========================================================= */
+    const setFlipped = shouldFlip => {
+        card.classList.toggle("is-flipped", shouldFlip);
+        card.setAttribute(
+            "aria-pressed",
+            shouldFlip ? "true" : "false"
+        );
+    };
 
-if (
-    hasFinePointer &&
-    !prefersReducedMotion
-) {
+    card.addEventListener("click", () => {
+        if (!touchLikePointer.matches) return;
 
-    document
-        .querySelectorAll(".magnetic")
-        .forEach(button => {
+        const nextState = !card.classList.contains("is-flipped");
 
-            button.addEventListener(
-                "mousemove",
-                event => {
+        if (nextState) {
+            closeOtherSocialCards(card);
+        }
 
-                    const rect =
-                        button.getBoundingClientRect();
+        setFlipped(nextState);
+    });
 
-                    const x =
-                        event.clientX -
-                        rect.left -
-                        rect.width / 2;
+    card.addEventListener("keydown", event => {
+        if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
 
-                    const y =
-                        event.clientY -
-                        rect.top -
-                        rect.height / 2;
+            const nextState = !card.classList.contains("is-flipped");
 
-                    button.style.transform =
-                        `translate(
-                            ${x * 0.13}px,
-                            ${y * 0.13}px
-                        )`;
+            if (nextState) {
+                closeOtherSocialCards(card);
+            }
 
-                }
-            );
+            setFlipped(nextState);
+        }
+    });
 
+    card.addEventListener("blur", () => {
+        if (!touchLikePointer.matches) {
+            setFlipped(false);
+        }
+    });
 
-            button.addEventListener(
-                "mouseleave",
-                () => {
+});
 
-                    button.style.transform =
-                        "translate(0px, 0px)";
+if (socialCards.length) {
 
-                }
-            );
+    document.addEventListener("click", event => {
+        if (
+            touchLikePointer.matches &&
+            !event.target.closest(".social-card")
+        ) {
+            closeOtherSocialCards(null);
+        }
+    });
 
+    const resetSocialCards = () => {
+        socialCards.forEach(card => {
+            card.classList.remove("is-flipped");
+            card.setAttribute("aria-pressed", "false");
         });
+    };
+
+    if (typeof touchLikePointer.addEventListener === "function") {
+        touchLikePointer.addEventListener("change", resetSocialCards);
+    } else if (typeof touchLikePointer.addListener === "function") {
+        touchLikePointer.addListener(resetSocialCards);
+    }
 
 }
 
