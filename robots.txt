@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://ammoita.github.io/templateadvogado/sitemap.xml
