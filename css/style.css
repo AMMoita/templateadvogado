@@ -907,37 +907,24 @@ img {
 }
 
 
+/* Legibilidade reforçada nas duas rubricas do perfil (PT e EN). */
 .profile__label {
-
     display: block;
-
-    margin-bottom: 15px;
-
+    margin-bottom: 19px;
     color: var(--gold);
-
-    font-size: 10px;
-
+    font-size: clamp(16px, 1.2vw, 18px);
     font-weight: 600;
-
-    letter-spacing: .13em;
-
+    letter-spacing: .065em;
+    line-height: 1.4;
     text-transform: uppercase;
-
 }
-
 
 .profile__columns p {
-
     margin: 0;
-
-    font-size: 14px;
-
-    line-height: 1.8;
-
+    font-size: clamp(17px, 1.32vw, 19px);
+    line-height: 1.7;
     color: var(--grey-dark);
-
 }
-
 
 
 /* ==========================================================
@@ -3646,4 +3633,22 @@ body.loaded
         width: calc(100% + 6px);
         padding-inline: 19px;
     }
+}
+
+/* Bilingual language switcher. Original styles above are preserved. */
+.language-switch { display:inline-flex; align-items:center; gap:7px; flex-shrink:0; font-size:10px; letter-spacing:.08em; white-space:nowrap; }
+.language-switch a { display:inline-block; opacity:.62; text-decoration:none; }
+.language-switch a[aria-current="page"] { opacity:1; font-weight:600; }
+.language-switch > span { opacity:.45; }
+.language-switch--mobile { margin-top:26px; gap:18px; font-size:13px; }
+.language-switch--mobile a { font-size:13px; }
+/* The existing full-screen mobile navigation can scroll on small displays. */
+.mobile-menu { overflow-y:auto; overscroll-behavior:contain; }
+/* Leave the existing mobile breakpoint intact, but avoid a crowded desktop nav. */
+@media (min-width:901px) and (max-width:1240px) {
+  .header { padding-inline:25px; }
+  .desktop-nav { gap:12px; }
+  .desktop-nav a { font-size:8px; }
+  .logo { gap:10px; }
+  .logo__text { padding-left:10px; }
 }
