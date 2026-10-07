@@ -1,3 +1,4 @@
+const isEnglishUI = document.documentElement.lang.toLowerCase().startsWith("en");
 /* =========================================================
    HELPERS
 ========================================================= */
@@ -104,7 +105,7 @@ function setMenuState(isOpen) {
 
     menuButton.setAttribute(
         "aria-label",
-        isOpen ? "Fechar menu" : "Abrir menu"
+        isOpen ? (isEnglishUI ? "Close menu" : "Fechar menu") : (isEnglishUI ? "Open menu" : "Abrir menu")
     );
 
     const lines = menuButton.querySelectorAll("span");
@@ -407,7 +408,7 @@ if (contactForm) {
             if (submitButtonText) {
 
                 submitButtonText.textContent =
-                    "A processar...";
+                    (isEnglishUI ? "Processing..." : "A processar...");
 
             }
 
@@ -422,7 +423,7 @@ if (contactForm) {
                 if (submitButtonText) {
 
                     submitButtonText.textContent =
-                        "Enviar mensagem";
+                        (isEnglishUI ? "Send Message" : "Enviar mensagem");
 
                 }
 
@@ -434,7 +435,7 @@ if (contactForm) {
                 if (formMessage) {
 
                     formMessage.textContent =
-                        "O formulário está preparado visualmente, mas o envio ainda necessita de ligação a um serviço de e-mail ou backend.";
+                        (isEnglishUI ? "The form is for demonstration purposes only. Sending messages requires an email service or backend connection." : "O formulário está preparado visualmente, mas o envio ainda necessita de ligação a um serviço de e-mail ou backend.");
 
                 }
 
