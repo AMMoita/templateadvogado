@@ -1,0 +1,55 @@
+SITE LGC — V8 | Preparação de privacidade e cookies
+Data: 2026-10-09
+
+INCLUI:
+- Páginas legais PT/EN: politica-privacidade.html, cookies.html,
+  en/privacy-policy.html e en/cookies.html.
+- Ligações no rodapé das 8 páginas existentes e nas novas páginas.
+- Botão de preferências com informação sobre Google Analytics.
+- Consentimento preparado para Google Analytics 4 no modo básico:
+  script NÃO carrega antes da autorização afirmativa, quando ativado.
+- Formulário de contacto continua SEM envio. Mantida a frase
+  «Li e aceito a Política de Privacidade», agora com ligação funcional.
+- Google Fonts remoto (DM Sans e Playfair Display), preservando visual.
+- Sitemap atualizado com versões PT/EN das páginas legais.
+
+IMPORTANTÍSSIMO ANTES DA PUBLICAÇÃO:
+1. Confirmar formalmente quem é o responsável pelo tratamento dos dados
+   (Leonel Gomes Cá, Native Legal, ou corresponsabilidade), dados profissionais
+   e enquadramento concreto. A política é um texto inicial para validação jurídica.
+2. Rever destinatários/subcontratantes, prazos, transferências internacionais,
+   outras plataformas e medidas de segurança com os responsáveis reais.
+3. Confirmar URLs e domínio oficial. Por enquanto mantém-se o domínio
+   provisório https://ammoita.github.io/templateadvogado/ nas tags SEO,
+   sitemap e robots (herdado da V7.1).
+4. Acrescentar as fotografias novas à pasta assets conforme V7.1.
+5. O formulário continua apenas demonstrativo. Não inserir dados confidenciais.
+6. Rever a conformidade de Google Fonts externo, pois há requests à Google.
+   Para eliminar pedidos externos, discutir alojamento local das fontes.
+
+COMO ATIVAR O GOOGLE ANALYTICS POSTERIORMENTE (NÃO ATIVADO NA V8):
+1. Criar propriedade GA4 e obter ID do fluxo web, ex.: G-XXXXXXXXXX.
+2. Configurar retenção, sinais Google, partilhas, transferências e IP conforme
+   enquadramento aplicável e confirmar contratos com fornecedores.
+3. Revisar e atualizar as páginas legais, em especial detalhes GA e cookies.
+4. Em js/privacy-config.js, definir analyticsEnabled:true e
+   analyticsMeasurementId:"G-XXXXXXXXXX".
+5. Testar via DevTools/Network, sem armazenamento prévio:
+   - Acesso inicial: nenhum pedido gtag/js, /g/collect ou cookies _ga.
+   - Rejeitar: continua sem pedidos analíticos nem cookies _ga.
+   - Aceitar: gtag carrega e consentimento fica persistente.
+   - Retirar: novas visitas não carregam Google Analytics.
+   - Verificar também navegação PT/EN, mobile, Safari e browsers privados.
+6. Atualizar textos que indicam que o Analytics «não está ativo» e
+   nome/duração efetivos dos cookies antes de o ativar.
+
+FONTES CONSULTADAS (referências não constituem aconselhamento jurídico):
+- Regulamento (UE) 2016/679 (RGPD): https://eur-lex.europa.eu/eli/reg/2016/679/pt
+- Artigo 5 Lei 41/2004 versão consolidada: https://diariodarepublica.pt/dr/legislacao-consolidada/lei/2004-106523049
+- CNPD, consentimento: https://www.cnpd.pt/organizacoes/areas-tematicas/consentimento/
+- CNPD, direitos: https://www.cnpd.pt/cidadaos/direitos/
+- EDPB, Cookie Banner Taskforce: https://www.edpb.europa.eu/documents/task-force-report/report-of-the-work-undertaken-by-the-cookie-banner-taskforce_en
+- Google, Consent Mode básico: https://developers.google.com/tag-platform/security/concepts/consent-mode
+- Google, cookies GA4: https://developers.google.com/analytics/devguides/collection/ga4/tag-options
+- GitHub Pages: https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages
+- Google Fonts API: https://developers.google.com/fonts/docs/technical_considerations
