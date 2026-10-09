@@ -272,6 +272,9 @@ const socialCards = document.querySelectorAll(".social-card");
 const touchLikePointer = window.matchMedia(
     "(hover: none), (pointer: coarse)"
 );
+const compactSocialLayout = window.matchMedia("(max-width: 600px)");
+const socialCardsUseClick = () =>
+    touchLikePointer.matches || compactSocialLayout.matches;
 
 function closeOtherSocialCards(activeCard) {
     socialCards.forEach(card => {
@@ -293,7 +296,7 @@ socialCards.forEach(card => {
     };
 
     card.addEventListener("click", () => {
-        if (!touchLikePointer.matches) return;
+        if (!socialCardsUseClick()) return;
 
         const nextState = !card.classList.contains("is-flipped");
 
@@ -330,7 +333,7 @@ if (socialCards.length) {
 
     document.addEventListener("click", event => {
         if (
-            touchLikePointer.matches &&
+            socialCardsUseClick() &&
             !event.target.closest(".social-card")
         ) {
             closeOtherSocialCards(null);
@@ -344,11 +347,13 @@ if (socialCards.length) {
         });
     };
 
-    if (typeof touchLikePointer.addEventListener === "function") {
-        touchLikePointer.addEventListener("change", resetSocialCards);
-    } else if (typeof touchLikePointer.addListener === "function") {
-        touchLikePointer.addListener(resetSocialCards);
-    }
+    [touchLikePointer, compactSocialLayout].forEach(mediaQuery => {
+        if (typeof mediaQuery.addEventListener === "function") {
+            mediaQuery.addEventListener("change", resetSocialCards);
+        } else if (typeof mediaQuery.addListener === "function") {
+            mediaQuery.addListener(resetSocialCards);
+        }
+    });
 
 }
 
